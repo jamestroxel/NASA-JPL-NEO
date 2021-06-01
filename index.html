@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doom Scrolling</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@100;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+   
+    <div class="legend-wrap">
+        <div id="capture">
+            <p class="close"><span class="arrows">&larr;</span> Legend <span class="arrows">&rarr;</span></p>
+        </div>
+        <p class="expand"><span class="arrows">&larr;</span> Legend <span class="arrows">&rarr;</span></p>
+        <div class="container-wrap">
+            <div class="legendContainer">
+                <div class="legendTeaser">
+                <p class="legendTeaserText">This website continuously gathers data from Sentry, NASA JPL's automated, near-earth-object monitoring system, and displays important statistics about all asteroids currently under its observation. </p>   
+                </div>
+                <div class='countContainer'>
+                    <p id="count"></p>
+                </div>
+                <div class="legendItem">
+                    <svg width="150px" height="150px">
+                        <defs>
+                            <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5"
+                                markerWidth="5" markerHeight="5">
+                            <circle cx="5" cy="5" r="5" fill="white" />
+                            </marker>
+                            <filter id="1" x="0" y="0">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
+                            </filter>
+                        </defs>
+                        <!-- <circle fill="white" cx="75" cy="75" r="75" filter="url(#1)"></circle> -->
+                        <text class="legendText" fill="white" x="0" y="14" style="font-weight: 400;">Sharpness of black circle = </text>
+                        <text class="legendText" fill="white" x="0" y="29" style="font-weight: 400;">impact probability (IP)</text>
+                        <g height="150" width="150">
+                            <circle cx="75" cy="80" fill="transparent" stroke="white" r="20"></circle>
+                            <path d="M0 149 C 42.5 149, 42.5 80, 75 80, 107.5 80, 107.5 149, 150 149" fill="transparent" stroke="white" stroke-width="1"></path>
+                            <line stroke-width="1" stroke="white" x1="75" x2="75" y1="80" y2="150" style="stroke-dasharray: 5, 2.5;"></line>
+                            <line stroke-width="1" stroke="white" x1="60" x2="60" y1="80" y2="150"></line>
+                        </g>
+                        <!-- <text class="legendText" fill="white" x="0" y="14" style="font-weight: 800;">Legend</text> -->
+                        <line stroke-width="1" stroke="white" marker-end="url(#dot)" x1="0" x2="60" y1="80" y2="80"></line>
+                        <line stroke-width="1" stroke="white" marker-start="url(#dot)" x1="95" x2="150" y1="80" y2="80"></line>
+                        <line stroke-width="1" stroke="white" marker-start="url(#dot)" x1="75" x2="150" y1="115" y2="115"></line>
+                        <text class="legendText" fill="white" x="0" y="55" style="font-weight: 400;">Palermo</text>
+                        <text class="legendText" fill="white" x="0" y="70" style="font-weight: 400;">Scale (PS)</text>
+                        <text class="legendText" text-anchor="end" fill="white" x="150" y="55" style="font-weight: 400;">Diameter</text>
+                        <text class="legendText" text-anchor="end" fill="white" x="150" y="70" style="font-weight: 400;">(km)</text>
+                        <text class="legendText" text-anchor="end" fill="white" x="150" y="105" style="font-weight: 400;">Average</text>
+                    </svg>
+                </div>
+                <div class="legendItem">
+                    <p class="legendText"><b>The Palermo Scale</b><br>This is based on the tabulated impact date, impact probability, and impact energy. NASA essentially grades the danger of each NEO on a&nbsp;curve. Read more <span><a target="_blank" href="https://cneos.jpl.nasa.gov/sentry/palermo_scale.html">here</a></span>.</p>
+                </div>
+                <div class="buttonItem1">
+                    <button id="sortIp" type="button">Sort by IP</button>
+                    <button id="sortObs" type="button">Sort by Recent</button>
+                    <button id="sortPs" type="button">Sort by PS</button>
+                    <button id="sortDiameter" type="button">Sort by Diameter</button>
+                </div>
+                <!-- <div class="buttonItem2">
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        <div class="teaserContainer">
+            <p class="teaser">This website continuously gathers data from Sentry, NASA Jet Propulsion Lab's automated, near-earth-object monitoring system, and displays important statistics about all asteroids currently under its observation. </p>
+        </div>
+    </div>
+    <div class="headerContainer">
+        <a class="link1" href="https://github.com/jamestroxel/NASA-JPL-NEO" target="_blank">About</a>
+        <p class="title">Impact Probability & Palermo Hazard Scale of&nbsp;NASA-Designated Near-Earth&nbsp;Objects</p>
+        <a class="link2" href="https://ssd-api.jpl.nasa.gov/doc/sentry.html" target="_blank">Source</a>
+    </div>   
+    <div id="viz" class="container"></div>
+    <script src='scripts/script.js'></script>
+</body>
+</html>
