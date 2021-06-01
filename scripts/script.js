@@ -166,58 +166,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       })
       .attr("y1", 75)
       .attr("y2", 145);
-
-    // const hoverText =  d3.selectAll('.neoItem')
-    // .append('text')
-    //   .attr('class', 'neoText')
-    //   .attr('fill', 'white')
-    //   .attr('x', 5)
-    //   .attr('y', 105)
-    //   .html(`ip: ${d.ip}`)
-    //   .append('tspan')
-    //   .attr('class', 'neoText')
-    //   .attr('fill', 'white')
-    //   .attr('x', 5)
-    //   .attr('y', 85)
-    //   .html(`ps: ${d.ps}`)
-    //   .append('tspan')
-    //   .attr('class', 'neoText')
-    //   .attr('fill', 'white')
-    //   .attr('x', 5)
-    //   .attr('y', 125)
-    //   .html(`range: ${d.range}`)
-    //   .append('tspan')
-    //   .attr('class', 'neoText')
-    //   .attr('fill', 'white')
-    //   .attr('x', 5)
-    //   .attr('y', 145)
-    //   .html(`diameter: ${d.diameter}km`);
-
-    // const avg = d3.selectAll('.neoItem')
-    // .append('line')
-    // .data(neoData)
-    // .join('line')
-    // .attr("class", "avg")
-    // .attr("stroke-width", 1)
-    // .attr("stroke", "white")
-    // .style("stroke-dasharray","4,5")
-    // .attr('x1', 75)
-    // .attr('x2', 75)
-    // .attr('y1', 75)
-    // .attr('y2', 145);
-
-    // const ps = d3.selectAll('.neoItem')
-    // .append('line')
-    // .data(neoData)
-    // .join('ps')
-    // .attr("class", "ps")
-    // .attr("stroke-width", 1)
-    // .attr("stroke", "white")
-    // .attr('x1', function(d){ return 75 + d.ps})
-    // .attr('x2', function(d){ return 75 + d.ps})
-    // .attr('y1', 75)
-    // .attr('y2', 145);
-
+      
     function mouseover(event, d) {
       // debugger
       d3.select(this)
