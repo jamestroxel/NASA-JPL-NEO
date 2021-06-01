@@ -1,4 +1,4 @@
-![alt text](/documentation/homePage.png)
+![alt text](/documentation/nasa-jpl-neo-1.png)
 
 # Impact Probability & Palermo Hazard Scale of NASA-Designated Near-Earth-Objects
 This website continuously gathers data from Sentry, the NASA Jet Propulsion Lab's automated, near-earth object monitoring system, and displays important statistics about all asteroids currently under its observation. 
