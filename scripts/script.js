@@ -308,13 +308,13 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
 
     };
 
-    function legendClose() {
+    function legendClose(e) {
       //   var captureClick = function(event) {
       //     event.stopPropagation();
-      //     this.on('click', captureClick, true); // cleanup
+      //     this.on('mousedown', captureClick, true); // cleanup
       // }
       // d3.select('#capture')
-      //   .on('click',captureClick, true);
+      //   .on('mousedown',captureClick, true);
 
       d3.select(".legend-wrap")
         .transition()
@@ -346,6 +346,8 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
         .style("opacity", "0")
         .style('height', "0px")
         .style('width', "0px");
+        
+        e.stopPropagation();
     };    
 
     function subTitleDown() {
@@ -372,8 +374,41 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .on("touchstart", legendView);
 
     d3.select(".close")
-      .on("mousedown", legendClose)
-      .on("touchstart", legendClose);
+      .on("mousedown", function(e) {
+        d3.select(".legend-wrap")
+          .transition()
+          .duration(400)
+          .ease(d3.easeLinear)
+          .style("height", "40px");
+          d3.select(".container-wrap")
+          .transition()
+          .duration(400)
+          .ease(d3.easeLinear)
+          .style("height", "0px");
+  
+          d3.selectAll(".arrows")
+          .transition()
+          .duration(400)
+          .ease(d3.easeLinear)
+          .style("opacity", "0");
+          d3.select('.expand')
+          .transition()
+          .duration(0)
+          .ease(d3.easeLinear)
+          .style("opacity", "1")
+          // .style('height', "100%")
+          .style('width', "100%");
+          d3.select('.close')
+          .transition()
+          .duration(0)
+          .ease(d3.easeLinear)
+          .style("opacity", "0")
+          .style('height', "0px")
+          .style('width', "0px");
+          
+          e.stopPropagation();
+      });
+      // .on("touchstart", legendClose);
 
     d3.selectAll(".neoItem")
       .on("mouseenter", mouseover)
