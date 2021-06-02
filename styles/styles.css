@@ -466,11 +466,10 @@ button:active {
         /* height:100vh; */
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         align-content: center;
         text-align: center;
-       
        margin-left:0px;
        margin-right:0px;
         
@@ -504,8 +503,8 @@ button:active {
         background: none;
         mix-blend-mode:hard-light;
         border-radius: 0px 0px 10px 10px;
-        margin-left:10px;
-        margin-right:10px;
+        /* margin-left:10px;
+        margin-right:10px; */
         padding-bottom:15px;
         padding-top:10px;
         /* border-radius: 0px 0px 10px 10px; */
@@ -518,7 +517,7 @@ button:active {
         /* width:auto; */
         text-align: left;
         margin-top: -5px;
-        padding-left:0px;
+        padding-left:15px;
     
       }
       .link2{
@@ -530,7 +529,7 @@ button:active {
         margin-top: -5px;
         float:right;
         color:white;
-        padding-right:0px;
+        padding-right:15px;
         /* padding-top:25px; */
       }
     .expand{
