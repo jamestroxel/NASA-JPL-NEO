@@ -1,3 +1,23 @@
+d3.select('.lds-dual-ring')
+  .transition()
+  .duration(100)
+  .delay(4000)
+  .style('opacity', 0);
+
+// function loader(){
+//   spinner.select('feGaussianBlur')
+//   .transition()
+//   .duration(3000)
+//   .ease(d3.easeLinear)
+//   .attr("stdDeviation", 0);
+//   d3.select(".loader")
+//   .transition()
+//   .duration(0)
+//   .delay(4000)
+//   .style('opacity', 0);
+// }
+
+
 d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
   let neoData = [];
   console.log(data);
@@ -12,6 +32,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
     });
   });
   console.log(neoData);
+
 
   function sortPs(d) {
     d3.selectAll(".item").remove();
