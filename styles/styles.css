@@ -441,6 +441,7 @@ button:active {
     display:flex;
     justify-content: center;
     align-content: center;
+    pointer-events: none;
     
 }
 .loader{
