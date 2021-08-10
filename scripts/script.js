@@ -1,26 +1,13 @@
-d3.select('.lds-dual-ring')
+// Load animation
+d3.select(".lds-dual-ring")
   .transition()
   .duration(100)
   .delay(4000)
-  .style('opacity', 0);
+  .style("opacity", 0);
 
-// function loader(){
-//   spinner.select('feGaussianBlur')
-//   .transition()
-//   .duration(3000)
-//   .ease(d3.easeLinear)
-//   .attr("stdDeviation", 0);
-//   d3.select(".loader")
-//   .transition()
-//   .duration(0)
-//   .delay(4000)
-//   .style('opacity', 0);
-// }
-
-
+// Fetch
 d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
   let neoData = [];
-  console.log(data);
   data.data.forEach((d) => {
     neoData.push({
       Name: d.des,
@@ -31,34 +18,33 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       last_obs: d.last_obs,
     });
   });
-  console.log(neoData);
 
-
+  // Sort functions for UI
   function sortPs(d) {
     d3.selectAll(".item").remove();
     d.sort((a, b) => (a.ps < b.ps ? 1 : -1));
     draw(sortPs);
   }
-  // sortPs(neoData);
 
   function sortIp(d) {
     d3.selectAll(".item").remove();
     d.sort((a, b) => (a.ip < b.ip ? 1 : -1));
     draw(sortIp);
   }
-  // sortIp(neoData);
 
   function sortObs(d) {
     d3.selectAll(".item").remove();
     d.sort((a, b) => (a.last_obs < b.last_obs ? 1 : -1));
     draw(sortObs);
   }
-  // sortObs(neoData);
+
   function sortDiameter(d) {
     d3.selectAll(".item").remove();
     d.sort((a, b) => (a.diameter < b.diameter ? 1 : -1));
     draw(sortDiameter);
   }
+
+  // UI Events
   document.getElementById("sortPs").onclick = function () {
     sortPs(neoData);
   };
@@ -72,13 +58,16 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
     sortDiameter(neoData);
   };
 
+  // Count display
   const output = document.getElementById("count");
   output.innerHTML =
     "Currently observing:<br>" + "<b>" + neoData.length + "</b>" + " NEOs";
 
+  // Filter reference based on impact probibility of each item
   const filter = function (d) {
     return "url(#" + d.ip + ")";
   };
+  // Margins and scales
   const height = 800;
   const width = 1080;
   const margins = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -94,8 +83,11 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
     .scaleLinear()
     .domain(d3.extent(neoData, (d) => d.ps))
     .range([1, 74]);
+
+  // Draw viz
   function draw() {
     const item = d3.select("#viz").selectAll("a").data(neoData);
+    // Wrap each item in an anchor linking to JPL Small-Body Database Browser
     item
       .enter()
       .append("a")
@@ -114,6 +106,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .attr("width", 150)
       .attr("height", 150);
 
+    // Generate SVG def tags with unique filters and feGaussianBlur values
     const defs = d3
       .selectAll(".neoItem")
       .append("defs")
@@ -129,6 +122,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
         return 150 - ipScale(d.ip);
       });
 
+    // Append silhouettes and apply blur filter
     const neo = d3
       .selectAll(".neoItem")
       .append("circle")
@@ -139,6 +133,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .attr("r", 75)
       .attr("filter", filter);
 
+    // Draw Diameter marker
     const curve = d3
       .selectAll(".neoItem")
       .append("g")
@@ -154,6 +149,9 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .attr("r", function (d) {
         return diameter(d.diameter);
       });
+
+    // Draw Palermo Scale graphs
+    // Bell curve
     d3.selectAll(".curve")
       .append("path")
       .attr(
@@ -163,6 +161,8 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .attr("fill", "transparent")
       .attr("stroke", "white")
       .attr("stroke-width", 1);
+
+    // Average line
     d3.selectAll(".curve")
       .append("line")
       .attr("class", "avg")
@@ -173,6 +173,8 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       .attr("x2", 75)
       .attr("y1", 75)
       .attr("y2", 145);
+
+    // Statistic line
     d3.selectAll(".curve")
       .append("line")
       .attr("class", "ps")
@@ -187,7 +189,24 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       })
       .attr("y1", 75)
       .attr("y2", 145);
-      
+
+     // Append NEO name
+     const name = d3
+     .selectAll(".neoItem")
+     .append("text")
+     .join("text")
+     .attr("class", "neoName")
+     .style("font-weight", 800)
+     .style("text-transform", "uppercase")
+     .attr("fill", "white")
+     .attr("x", 5)
+     .attr("y", 20)
+     .html(function (d) {
+       return d.Name;
+     });
+
+
+    // Tooltip events (text is appended on mouseover, mouseout fades "neoText" opacity to 0, then removes it)
     function mouseover(event, d) {
       // debugger
       d3.select(this)
@@ -217,20 +236,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
         .html(`diameter: ${d.diameter}km`);
       d3.select(this).select(".curve").style("visibility", "hidden");
     }
-
-    const name = d3
-      .selectAll(".neoItem")
-      .append("text")
-      .join("text")
-      .attr("class", "neoName")
-      .style("font-weight", 800)
-      .style("text-transform", "uppercase")
-      .attr("fill", "white")
-      .attr("x", 5)
-      .attr("y", 20)
-      .html(function (d) {
-        return d.Name;
-      });
+   
 
     function mouseout() {
       d3.selectAll(".neoText")
@@ -239,157 +245,108 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
         .ease(d3.easeLinear)
         .style("opacity", 0)
         .delay(function (d, i) {
-          console.log(i);
           return i * 1;
-        });
+        })
+        .remove();
       d3.selectAll(".curve").style("visibility", "visible");
     }
+
+    // Legend behavior for mobile version
     function legendView() {
       d3.select(".legend-wrap")
         .transition()
         .duration(400)
         .ease(d3.easeLinear)
         .style("height", "220px");
-        d3.select(".container-wrap")
+      d3.select(".container-wrap")
         .transition()
         .duration(400)
         .ease(d3.easeLinear)
         .style("height", "220px");
-        
-        d3.selectAll(".arrows")
+
+      d3.selectAll(".arrows")
         .transition()
         .duration(400)
         .ease(d3.easeLinear)
         .style("opacity", "1");
-        d3.select('.expand')
+      d3.select(".expand")
         .transition()
         .duration(0)
         .ease(d3.easeLinear)
         .style("opacity", "0")
-        .style('height', "0px")
-        .style('width', "0px");
-        d3.select('.close')
+        .style("height", "0px")
+        .style("width", "0px");
+      d3.select(".close")
         .transition()
         .duration(0)
         .ease(d3.easeLinear)
         .style("opacity", "1")
-        // .style('height', "100%")
-        .style('width', "100%");
-
-    };
-
-    function legendClose(e) {
-      //   var captureClick = function(event) {
-      //     event.stopPropagation();
-      //     this.on('mousedown', captureClick, true); // cleanup
-      // }
-      // d3.select('#capture')
-      //   .on('mousedown',captureClick, true);
-
-      d3.select(".legend-wrap")
-        .transition()
-        .duration(400)
-        .ease(d3.easeLinear)
-        .style("height", "40px");
-        d3.select(".container-wrap")
-        .transition()
-        .duration(400)
-        .ease(d3.easeLinear)
-        .style("height", "0px");
-
-        d3.selectAll(".arrows")
-        .transition()
-        .duration(400)
-        .ease(d3.easeLinear)
-        .style("opacity", "0");
-        d3.select('.expand')
-        .transition()
-        .duration(0)
-        .ease(d3.easeLinear)
-        .style("opacity", "1")
-        // .style('height', "100%")
-        .style('width', "100%");
-        d3.select('.close')
-        .transition()
-        .duration(0)
-        .ease(d3.easeLinear)
-        .style("opacity", "0")
-        .style('height', "0px")
-        .style('width', "0px");
-        
-        e.stopPropagation();
-    };    
-
+        .style("width", "100%");
+    }
+    
+    // Subtitle drop-down on mouseover at top of screen
     function subTitleDown() {
       d3.select(".teaser")
         .transition()
         .duration(400)
         .ease(d3.easeLinear)
-        // .style('opacity', '1')
-        .style('margin-top', '0px')
-        // .style("height", "46.5px");
-    };
+        .style("margin-top", "0px");
+    }
     function subTitleUp() {
       d3.select(".teaser")
         .transition()
         .duration(400)
         .ease(d3.easeLinear)
-        // .style('opacity', '0')
-        .style('margin-top', '-51px')
-        // .style("height", "0px");
-    };
-
+        .style("margin-top", "-51px");
+    }
+    // Legend UI is revealed on touchstart
     d3.select(".expand")
       .on("mousedown", legendView)
       .on("touchstart", legendView);
 
-    d3.select(".close")
-      .on("mousedown", function(e) {
-        d3.select(".legend-wrap")
-          .transition()
-          .duration(400)
-          .ease(d3.easeLinear)
-          .style("height", "40px");
-          d3.select(".container-wrap")
-          .transition()
-          .duration(400)
-          .ease(d3.easeLinear)
-          .style("height", "0px");
-  
-          d3.selectAll(".arrows")
-          .transition()
-          .duration(400)
-          .ease(d3.easeLinear)
-          .style("opacity", "0");
-          d3.select('.expand')
-          .transition()
-          .duration(0)
-          .ease(d3.easeLinear)
-          .style("opacity", "1")
-          // .style('height', "100%")
-          .style('width', "100%");
-          d3.select('.close')
-          .transition()
-          .duration(0)
-          .ease(d3.easeLinear)
-          .style("opacity", "0")
-          .style('height', "0px")
-          .style('width', "0px");
-          
-          e.stopPropagation();
-      });
-      // .on("touchstart", legendClose);
+    // Collapses 
+    d3.select(".close").on("mousedown", function (e) {
+      d3.select(".legend-wrap")
+        .transition()
+        .duration(400)
+        .ease(d3.easeLinear)
+        .style("height", "40px");
+      d3.select(".container-wrap")
+        .transition()
+        .duration(400)
+        .ease(d3.easeLinear)
+        .style("height", "0px");
+
+      d3.selectAll(".arrows")
+        .transition()
+        .duration(400)
+        .ease(d3.easeLinear)
+        .style("opacity", "0");
+      d3.select(".expand")
+        .transition()
+        .duration(0)
+        .ease(d3.easeLinear)
+        .style("opacity", "1")
+        .style("width", "100%");
+      d3.select(".close")
+        .transition()
+        .duration(0)
+        .ease(d3.easeLinear)
+        .style("opacity", "0")
+        .style("height", "0px")
+        .style("width", "0px");
+      // This prevents "mouseup" from triggering anchor tags underneath legend when it collapses
+      e.stopPropagation();
+    });
 
     d3.selectAll(".neoItem")
       .on("mouseenter", mouseover)
       .on("touchstart", mouseover)
       .on("touchend", mouseout)
       .on("mouseleave", mouseout);
-    d3.select('.headerContainer')
+    d3.select(".headerContainer")
       .on("mouseenter", subTitleDown)
-      .on("mouseout", subTitleUp)
-    // d3.selectAll('.item')
-    //   .on("mousedown", function(event) { event.stopPropagation(); })
+      .on("mouseout", subTitleUp);
   }
   draw();
 });
