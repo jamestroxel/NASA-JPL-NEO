@@ -251,7 +251,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
       d3.selectAll(".curve").style("visibility", "visible");
     }
 
-    // Legend behavior for mobile version
+    // Legend behavior for mobile version ("close" and "expand" behaviors toggled by adjusting height and width of each on event trigger)
     function legendView() {
       d3.select(".legend-wrap")
         .transition()
@@ -283,7 +283,7 @@ d3.json("https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
         .style("opacity", "1")
         .style("width", "100%");
     }
-    
+
     // Subtitle drop-down on mouseover at top of screen
     function subTitleDown() {
       d3.select(".teaser")
