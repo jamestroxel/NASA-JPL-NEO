@@ -17,7 +17,7 @@ d3.json("https://aqueous-inlet-53463.herokuapp.com/https://ssd-api.jpl.nasa.gov/
       diameter: +d.diameter,
       last_obs: d.last_obs,
     });
-    console.log(neoData)
+    console.log(data)
   });
 
   // Sort functions for UI
@@ -95,9 +95,9 @@ d3.json("https://aqueous-inlet-53463.herokuapp.com/https://ssd-api.jpl.nasa.gov/
       .attr("class", "item")
       .attr("href", function (d) {
         return (
-          "https://ssd.jpl.nasa.gov/sbdb.cgi?sstr=" +
+          "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=" +
           d.Name +
-          ";old=0;orb=1;cov=0;log=0;cad=0#orb"
+          "&view=VOP"
         );
       })
       .attr("target", "_blank")
