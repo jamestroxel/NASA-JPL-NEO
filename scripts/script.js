@@ -6,7 +6,8 @@ d3.select(".lds-dual-ring")
   .style("opacity", 0);
 
 // Fetch
-d3.json("https://aqueous-inlet-53463.herokuapp.com/https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
+d3.json("https://intense-shelf-85456-ef0e439e5833.herokuapp.com/https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
+  console.log(data)
   let neoData = [];
   data.data.forEach((d) => {
     neoData.push({
@@ -17,7 +18,6 @@ d3.json("https://aqueous-inlet-53463.herokuapp.com/https://ssd-api.jpl.nasa.gov/
       diameter: +d.diameter,
       last_obs: d.last_obs,
     });
-    console.log(data)
   });
 
   // Sort functions for UI

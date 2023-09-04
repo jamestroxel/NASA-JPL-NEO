@@ -16,6 +16,6 @@ This is represented by the degree of blur given to the black, circular silhouett
 This was created using d3 by dynamically generating unique svg `<def>` and feGaussianBlur `<filter>` tags for each item using the the Impact Probability values from the Sentry API. This value is shown on a logarithmic scale between the smallest probabilty value and 1.
 
 ### Palermo Hazard Rating
-This is based on the tabulated impact date, impact probability, and impact energy. NASA essentially grades the danger of each NEO on a curve. The solid, virtical line indicates where on the curve each hazard score lands.
+This is based on the tabulated impact date, impact probability, and impact energy. NASA essentially grades the danger of each NEO on a curve. The solid, white, vertical line indicates where on the curve each hazard score lands.
 
-Variables like diameter are less important when evaluating overall risk. Describing an asteroid as being "the size of Texas" may sound impressive but mean very little if its impact probability is close to zero.
+Variables like diameter are less important when evaluating overall risk. Describing an asteroid as being "the size of Texas" may sound impressive but mean very little if its impact probability is close to zero. The diameter is nonetheless represented here by the size of the light blue circle in the center of each figure for additional context.
