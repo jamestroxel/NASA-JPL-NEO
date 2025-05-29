@@ -1,3 +1,0 @@
-[submodule "cors-anywhere"] 
-  path = cors-anywhere/server.js
-  url = git@github.com:Rob--W/cors-anywhere.git
