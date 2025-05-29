@@ -8,7 +8,7 @@ d3.select(".lds-dual-ring")
 
 
 // Fetch
-d3.json("../assets/data/staticSet.json").then((data) => {
+d3.json("./assets/data/staticSet.json").then((data) => {
   // console.log(data)
   let neoData = [];
   data.data.forEach((d) => {
