@@ -1,3 +1,4 @@
+
 // Load animation
 d3.select(".lds-dual-ring")
   .transition()
@@ -5,9 +6,10 @@ d3.select(".lds-dual-ring")
   .delay(4000)
   .style("opacity", 0);
 
+
 // Fetch
-d3.json("https://intense-shelf-85456-ef0e439e5833.herokuapp.com/https://ssd-api.jpl.nasa.gov/sentry.api").then((data) => {
-  console.log(data)
+d3.json("../data/staticSet.json").then((data) => {
+  // console.log(data)
   let neoData = [];
   data.data.forEach((d) => {
     neoData.push({
