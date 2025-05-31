@@ -302,6 +302,31 @@ d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/m
         .ease(d3.easeLinear)
         .style("margin-top", "-51px");
     }
+    // nudge all items down at top of screen on hover 
+    function itemsUp() {
+      const coords = document.addEventListener('mousemove', (event) => {
+        const y = event.clientY;
+        console.log(y)
+        if (y < 50) {
+             d3.select(".container")
+      .transition()
+      .duration(400)
+      .ease(d3.easeLinear)
+      .style("margin-top", "46px");
+        } 
+        else
+        {
+          d3.select(".container")
+          .transition()
+          .duration(400)
+          .ease(d3.easeLinear)
+          .style("margin-top", "0px");
+        }
+        
+      });
+    }
+
+    
     // Legend UI is revealed on touchstart
     d3.select(".expand")
       .on("mousedown", legendView)
@@ -350,6 +375,9 @@ d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/m
     d3.select(".headerContainer")
       .on("mouseenter", subTitleDown)
       .on("mouseout", subTitleUp);
+
+      itemsUp()
+    
   }
   draw();
 });
