@@ -166,6 +166,7 @@ a{
     border-top: 1px;
     border-style: solid;
     border-color: black; */
+    
     overflow-y: scroll;
 }
 
@@ -188,7 +189,6 @@ h2 {
     display: block;
     font-family: 'Big Shoulders Text', cursive;
     font-weight: 400;
-    /* font-size: 18pt; */
     color: white;
 }
 /* .legend{
@@ -759,4 +759,7 @@ button:active {
     .countContainer {
         margin-bottom:25px;
     }
+}
+.neo{
+    mix-blend-mode: multiply;
 }

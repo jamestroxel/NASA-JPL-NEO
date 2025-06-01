@@ -323,13 +323,7 @@ d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/m
         
       });
     }
-function itemsUp(){
-  d3.select(".container")
-          .transition()
-          .duration(400)
-          .ease(d3.easeLinear)
-          .style("margin-top", "0px");
-}
+
     
     // Legend UI is revealed on touchstart
     d3.select(".expand")
@@ -378,10 +372,9 @@ function itemsUp(){
       .on("mouseleave", mouseout);
     d3.select(".headerContainer")
       .on("mouseenter", subTitleDown)
-      .on("mouseout", subTitleUp);
-d3.select("body")
-.on("mouseout", itemsUp);
-itemsDown();
+      .on("mouseout", subTitleUp)
+      .on("click", collapseHeader)
+
       
     
   }

@@ -18,22 +18,7 @@
 <body>
     <div class="loader-container">
         <div class="lds-dual-ring"></div>
-            <defs>
-              <filter id="shadow" x="0" y="0">
-                <feGaussianBlur
-                  in="SourceGraphic"
-                  stdDeviation="25"
-                ></feGaussianBlur>
-              </filter>
-            </defs>
-            <circle
-            class="neo"
-            fill="black"
-            cx="75"
-            cy="75"
-            r="75"
-            filter="url(#shadow)"
-            ></circle>
+            
             <text class="legendText" text-anchor="middle" fill="white" x="75" y="80" style="font-weight: 400;">Loading</text>
         </svg> 
     </div>
@@ -52,7 +37,7 @@
                 </div>
                 <div class="legendItem">
                     <svg width="150px" height="150px">
-                        <defs>
+                        <!-- <defs>
                             <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5"
                                 markerWidth="5" markerHeight="5">
                             <circle cx="5" cy="5" r="5" fill="white" />
@@ -60,7 +45,7 @@
                             <filter id="1" x="0" y="0">
                                 <feGaussianBlur in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
                             </filter>
-                        </defs>
+                        </defs> -->
                         <text class="legendText" fill="white" x="0" y="14" style="font-weight: 400;">Shadow intensity indicates</text>
                         <text class="legendText" fill="white" x="0" y="29" style="font-weight: 400;">impact probability (IP)</text>
                         <g height="150" width="150">
