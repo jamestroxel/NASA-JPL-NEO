@@ -9,7 +9,6 @@ d3.select(".lds-dual-ring")
 
 // Fetch
 d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/main/assets/data/staticSet.json").then((data) => {
-  // console.log(data)
   let neoData = [];
   data.data.forEach((d) => {
     neoData.push({
@@ -306,7 +305,6 @@ d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/m
     function itemsUp() {
       const coords = document.addEventListener('mousemove', (event) => {
         const y = event.clientY;
-        console.log(y)
         if (y < 50) {
              d3.select(".container")
       .transition()
