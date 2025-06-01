@@ -310,7 +310,7 @@ d3.json("https://raw.githubusercontent.com/jamestroxel/NASA-JPL-NEO/refs/heads/m
       .transition()
       .duration(400)
       .ease(d3.easeLinear)
-      .style("margin-top", "46px");
+      .style("margin-top", "105px");
         } 
         else
         {
